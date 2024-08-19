@@ -7,5 +7,13 @@ async function cleanDatabase() {
 }
 
 describe("DELETE to /api/v1/migrations", () => {
-  test("should retun 200", async () => {});
+  test("should retun 405 with error message", async () => {
+    const response = await fetch("http://localhost:3000/api/v1/migrations", {
+      method: "DELETE",
+    });
+    const responseJson = await response.json();
+
+    expect(response.status).toBe(405);
+    expect(responseJson.error).toBe('Method "DELETE" not allowed');
+  });
 });
